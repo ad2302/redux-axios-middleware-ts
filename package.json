@@ -1,25 +1,26 @@
 {
+  "name": "redux-axios-middleware-ts",
   "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "author": "bung87",
+  "main": "dist/redux-axios-middleware-ts.cjs.js",
+  "module": "dist/redux-axios-middleware-ts.esm.js",
   "typings": "dist/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=12"
-  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "analyze": "size-limit --why",
+    "build": "rollpkg build",
+    "eslint": "eslint src --ext .ts",
+    "prepublishOnly": "rollpkg build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "start": "rollpkg watch",
+    "test": "jest",
+    "tslint": "tsc -p . --noEmit"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -31,9 +32,37 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "redux-axios-middleware-ts",
-  "author": "bung87",
-  "module": "dist/redux-axios-middleware-ts.esm.js",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@reduxjs/toolkit": "^1.7.1",
+    "@size-limit/preset-small-lib": "^7.0.5",
+    "@types/chai": "^4.3.0",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.10",
+    "@types/redux-mock-store": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "axios": "^0.25.0",
+    "axios-mock-adapter": "^1.20.0",
+    "chai": "^4.3.4",
+    "chai-shallow-deep-equal": "^1.4.6",
+    "eslint": "^8.7.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.4.7",
+    "prettier": "^2.5.1",
+    "redux": "^4.1.2",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.4.1",
+    "rollpkg": "^0.5.7",
+    "size-limit": "^7.0.5",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=12"
+  },
   "size-limit": [
     {
       "path": "dist/redux-axios-middleware-ts.cjs.production.min.js",
@@ -43,23 +72,5 @@
       "path": "dist/redux-axios-middleware-ts.esm.js",
       "limit": "10 KB"
     }
-  ],
-  "devDependencies": {
-    "@reduxjs/toolkit": "^1.7.1",
-    "@size-limit/preset-small-lib": "^7.0.5",
-    "@types/chai": "^4.3.0",
-    "@types/redux-mock-store": "^1.0.3",
-    "axios": "^0.25.0",
-    "axios-mock-adapter": "^1.20.0",
-    "chai": "^4.3.4",
-    "chai-shallow-deep-equal": "^1.4.6",
-    "husky": "^7.0.4",
-    "redux": "^4.1.2",
-    "redux-mock-store": "^1.5.4",
-    "redux-thunk": "^2.4.1",
-    "size-limit": "^7.0.5",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5"
-  }
+  ]
 }

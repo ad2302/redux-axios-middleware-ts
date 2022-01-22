@@ -69,7 +69,7 @@ export const multiClientMiddleware = (clients: ClientsList, customMiddlewareOpti
 
       setupedClients[clientName] = {
         client: clients[clientName].client,
-        options: clientOptions
+        options: clientOptions as Options
       };
     }
 
@@ -102,8 +102,8 @@ export const multiClientMiddleware = (clients: ClientsList, customMiddlewareOpti
   };
 };
 
-export default (client: AxiosInstance, customMiddlewareOptions?: Options, customClientOptions?: any) => {
+export function axiosMiddleware(client: AxiosInstance, customMiddlewareOptions?: Options, customClientOptions?: any) {
   const middlewareOptions = { ...defaultOptions, ...customMiddlewareOptions };
   const options = customClientOptions || {};
-  return multiClientMiddleware({ [middlewareOptions.defaultClientName]: { client, options } }, middlewareOptions);
-};
+  return multiClientMiddleware({ [middlewareOptions.defaultClientName]: { client, options } }, middlewareOptions as Options);
+}

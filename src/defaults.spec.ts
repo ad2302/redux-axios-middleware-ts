@@ -1,19 +1,22 @@
-import { expect,use } from 'chai';
-import { getActionTypes } from '../src/getActionTypes';
-import { isAxiosRequest, getRequestConfig, onSuccess, onError } from '../src/defaults';
-import { AxiosAction } from '../src/types';
+import { expect, use } from 'chai';
+import { getActionTypes } from './getActionTypes';
+import {
+  isAxiosRequest,
+  getRequestConfig,
+  onSuccess,
+  onError,
+} from './defaults';
+import { AxiosAction } from './types';
 import { AnyAction, Dispatch } from 'redux';
 
-import chaiShallowDeepEqual from "chai-shallow-deep-equal"
+import chaiShallowDeepEqual from 'chai-shallow-deep-equal';
 
 use(chaiShallowDeepEqual);
 
 describe('defaults', () => {
-
   describe('isAxiosRequest', () => {
-
     it('should check valid axios request', () => {
-      const action: AxiosAction = { type: '', payload: { request: {} } };
+      const action = { type: '', payload: { request: {} } };
       expect(isAxiosRequest(action)).to.be.ok;
     });
 
@@ -21,32 +24,28 @@ describe('defaults', () => {
       const action = { type: '', payload: {} };
       expect(isAxiosRequest(action)).to.be.not.ok;
     });
-
   });
 
   describe('getRequestConfig', () => {
-
     it('should return request config', () => {
       const request = {
-        url: '/abc'
+        url: '/abc',
       };
       const action: AxiosAction = { type: '', payload: { request } };
       // @ts-ignore
       expect(getRequestConfig(action)).to.equal(request);
-    })
-
+    });
   });
 
   describe('onSuccess', () => {
-
     let resultAction: any | null = null;
-    let next: Dispatch = <T>(action: T) => resultAction = action;
+    const next: Dispatch = <T>(action: T) => (resultAction = action);
     const response = {
       data: [1, 2, 3],
       status: 200,
       statusText: 'OK',
       headers: {},
-      config: {}
+      config: {},
     };
 
     beforeEach(() => {
@@ -54,57 +53,51 @@ describe('defaults', () => {
     });
 
     it('should fire action with response as payload', () => {
-
       const action = {
         type: 'REQUEST',
         payload: {
           request: {
-            url: '/request-url'
-          }
-        }
+            url: '/request-url',
+          },
+        },
       };
 
       onSuccess({ action, next, response }, {});
       expect(resultAction).to.shallowDeepEqual({
         type: getActionTypes(action)[1],
-        payload: response
-      })
-
+        payload: response,
+      });
     });
 
     it('should move previous action to meta', () => {
-
       const action = {
         type: 'REQUEST',
         payload: {
           moveKey: 'this will move to meta',
           request: {
-            url: '/request-url'
-          }
-        }
+            url: '/request-url',
+          },
+        },
       };
 
       onSuccess({ action, next, response }, {});
       expect(resultAction).to.shallowDeepEqual({
-        meta: { previousAction: action }
-      })
-
+        meta: { previousAction: action },
+      });
     });
-
   });
 
   describe('onError', () => {
-
-    let resultAction: AnyAction| null = null;
-    let next = (action:AnyAction) => resultAction = action;
+    let resultAction: AnyAction | null = null;
+    const next = (action: AnyAction) => (resultAction = action);
     const error = {
       response: {
         data: ['Error1', 'Error2'],
         status: 400,
         statusTest: 'BAD_REQUEST',
         headers: {},
-        config: {}
-      }
+        config: {},
+      },
     };
 
     beforeEach(() => {
@@ -112,43 +105,37 @@ describe('defaults', () => {
     });
 
     it('should fire action with error', () => {
-
       const action = {
         type: 'REQUEST',
         payload: {
           request: {
-            url: '/request-url'
-          }
-        }
+            url: '/request-url',
+          },
+        },
       };
       // @ts-ignore
       onError({ action, next, error }, {});
 
       expect(resultAction).to.shallowDeepEqual({
         type: getActionTypes(action)[2],
-        error
-      })
-
+        error,
+      });
     });
 
     it('should move previous action to meta', () => {
-
       const action = {
         type: 'REQUEST',
         payload: {
           request: {
-            url: '/request-url'
-          }
-        }
+            url: '/request-url',
+          },
+        },
       };
       // @ts-ignore
       onError({ action, next, error }, {});
       expect(resultAction).to.shallowDeepEqual({
-        meta: { previousAction: action }
-      })
-
+        meta: { previousAction: action },
+      });
     });
-
   });
-
 });

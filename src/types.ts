@@ -22,12 +22,12 @@ export type OnError = {
   error: AxiosError
 }
 export type Options = Partial<{
-  errorSuffix: string;
-  successSuffix: string;
-  cancelSuffix: string;
-  onSuccess(r?: OnSuccess, options?: Options): any;
-  onError(r?: OnError, options?: Options): any;
-  onComplete(): any;
+  errorSuffix: string
+  successSuffix: string
+  cancelSuffix: string
+  onSuccess: (r?: OnSuccess, options?: Options) => any
+  onError: (r?: OnError, options?: Options) => any;
+  onComplete: () => any
   returnRejectedPromiseOnError: boolean;
   isAxiosRequest(action: AnyAction): boolean;
   getRequestConfig: (action: TAxiosSourceAction) => AxiosRequestConfig<any> & {

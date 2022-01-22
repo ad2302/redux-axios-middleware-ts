@@ -1,8 +1,11 @@
 import { expect } from 'chai';
-import { getActionTypes, SUCCESS_SUFFIX, ERROR_SUFFIX } from '../src/getActionTypes';
+import {
+  getActionTypes,
+  SUCCESS_SUFFIX,
+  ERROR_SUFFIX,
+} from '../src/getActionTypes';
 
 describe('getActionTypes', () => {
-
   it('should return default types with `type` key', () => {
     const action = { type: 'TYPE' };
     const types = getActionTypes(action);
@@ -14,18 +17,13 @@ describe('getActionTypes', () => {
 
   it('should return custom types with `types` key', () => {
     const action = {
-      types: [
-        'TYPE',
-        'TYPE_AWESOME',
-        'TYPE_OH_NO'
-      ]
+      types: ['TYPE', 'TYPE_AWESOME', 'TYPE_OH_NO'],
     };
     const types = getActionTypes(action);
     expect(types).to.be.an('array');
     expect(types[0]).to.equal(action.types[0]);
     expect(types[1]).to.equal(`${action.types[1]}`);
     expect(types[2]).to.equal(`${action.types[2]}`);
-
   });
 
   it('should throw if not type or types key received', () => {
@@ -56,12 +54,11 @@ describe('getActionTypes', () => {
     const action = { type: 'TYPE' };
     const types = getActionTypes(action, {
       successSuffix: '_AWESOME',
-      errorSuffix: '_OH_NO'
+      errorSuffix: '_OH_NO',
     });
     expect(types).to.be.an('array');
     expect(types[0]).to.equal(action.type);
     expect(types[1]).to.equal(`${action.type}_AWESOME`);
     expect(types[2]).to.equal(`${action.type}_OH_NO`);
   });
-
 });

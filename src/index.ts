@@ -1,10 +1,3 @@
-export {
-  default,
-  multiClientMiddleware
-} from './middleware';
+export { axiosMiddleware, multiClientMiddleware } from './middleware';
 
-export {
-  getActionTypes,
-  ERROR_SUFFIX,
-  SUCCESS_SUFFIX,
-} from './getActionTypes';
+export { getActionTypes, ERROR_SUFFIX, SUCCESS_SUFFIX } from './getActionTypes';
