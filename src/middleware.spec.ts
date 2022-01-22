@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import { expect, use } from 'chai';
 import MockAdapter from 'axios-mock-adapter';
 
-import middleware from './middleware';
+import { axiosMiddleware } from './middleware';
 
 import chaiShallowDeepEqual from 'chai-shallow-deep-equal';
 import { AxiosActionResponse } from './types';
@@ -15,7 +15,7 @@ const client = axios.create({
 });
 
 const mockAxiosClient = new MockAdapter(client);
-const mockStore = configureMockStore([middleware(client)]);
+const mockStore = configureMockStore([axiosMiddleware(client)]);
 const mockAdapter = mockAxiosClient.adapter();
 
 describe('middleware', () => {
