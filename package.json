@@ -19,6 +19,7 @@
     "size": "size-limit",
     "start": "rollpkg watch",
     "test": "jest",
+    "lint": "yarn tslint && yarn eslint",
     "tslint": "tsc -p . --noEmit"
   },
   "husky": {
