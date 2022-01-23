@@ -1,6 +1,6 @@
 {
   "extends": "rollpkg/configs/tsconfig.json",
-  "include": ["src", "types"],
+  "include": ["src", "types" , "./jest-setup.ts"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     // use Node's module resolution algorithm, instead of the legacy TS one
     "moduleResolution": "node",
-    "types": ["node", "jest"],
+    "types": ["node", "jest" ,"react","react-dom"],
     // transpile JSX to React.createElement
     "jsx": "react",
     // interop between ESM and CJS modules. Recommended by TS
