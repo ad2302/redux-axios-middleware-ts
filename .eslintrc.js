@@ -20,6 +20,6 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
       'no-unused-vars': 0,
-      '@typescript-eslint/no-unused-vars': 2
+      '@typescript-eslint/no-unused-vars': ["error", { "args": "none" }]
   },
 };
